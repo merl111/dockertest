@@ -26,7 +26,7 @@ func checkDocker(t *testing.T, container *Container) int {
 }
 
 func TestRunContainer(t *testing.T) {
-	container, err := RunContainer("postgres:alpine", "5432", func(addr string) error {
+	container, err := RunContainer("postgres:alpine", "5432", "testcontainer", func(addr string) error {
 		db, err := sql.Open("postgres", "postgres://postgres:postgres@"+addr+"?sslmode=disable")
 		if err != nil {
 			return err

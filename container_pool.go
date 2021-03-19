@@ -3,6 +3,7 @@ package dockertest
 import (
 	"context"
 	"errors"
+	"fmt"
 	"log"
 	"time"
 )
@@ -20,7 +21,7 @@ type ContainerPool struct {
 func NewContainerPool(num int, container string, port string, waitFunc func(addr string) error, args ...string) (*ContainerPool, error) {
 	containerBuffer := make(chan *Container, num)
 	for i := 0; i < num; i++ {
-		c, err := RunContainer(container, port, waitFunc, args...)
+		c, err := RunContainer(container, port, fmt.Sprintf("%s%d", "testcontainer", i), waitFunc, args...)
 		if err != nil {
 			return nil, err
 		}
